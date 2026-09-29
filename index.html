@@ -79,14 +79,6 @@ body{background:#06060c;color:var(--text);font-family:'Outfit',sans-serif;min-he
 .preset-btn:hover{background:rgba(124,92,255,.15);border-color:var(--primary2)}
 .preset-btn.active{background:linear-gradient(135deg,var(--primary),#a855f7);color:#fff;border-color:transparent}
 .hint{font-family:'JetBrains Mono',monospace;font-size:7px;color:var(--cyan);letter-spacing:1.5px;text-align:center}
-/* SOUND UNLOCK OVERLAY — same as example */
-#sound-unlock{position:fixed;inset:0;z-index:20000;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(6,6,12,0.85);backdrop-filter:blur(8px);cursor:pointer;transition:opacity .4s,visibility .4s}
-#sound-unlock.hide{opacity:0;visibility:hidden;pointer-events:none}
-#sound-unlock .su-ring{width:70px;height:70px;border-radius:50%;background:linear-gradient(135deg,rgba(124,92,255,.25),rgba(34,211,238,.15));border:2px solid rgba(124,92,255,.5);display:flex;align-items:center;justify-content:center;animation:pulse 1.8s ease-in-out infinite;margin-bottom:14px}
-#sound-unlock .su-ring svg{width:30px;height:30px;stroke:#a78bfa;fill:none;stroke-width:1.8}
-#sound-unlock .su-text{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:3px;color:#a78bfa;text-transform:uppercase;font-weight:700}
-#sound-unlock .su-sub{font-family:'JetBrains Mono',monospace;font-size:7px;letter-spacing:2px;color:#565678;margin-top:6px}
-@keyframes pulse{0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(124,92,255,.5)}50%{transform:scale(1.08);box-shadow:0 0 0 18px rgba(124,92,255,0)}}
 @media (max-width:380px){.card-ui{max-width:100%;padding:16px 14px 14px}}
 @media (max-height:640px){.card-ui{padding:14px 12px 12px}}
 @media (min-width:768px){.card-ui{max-width:380px;padding:24px 22px 22px}}
@@ -94,20 +86,7 @@ body{background:#06060c;color:var(--text);font-family:'Outfit',sans-serif;min-he
 </head>
 <body>
 
-<!-- SOUND UNLOCK OVERLAY (same as example) -->
-<div id="sound-unlock">
-  <div class="su-ring">
-    <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
-      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
-      <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
-      <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
-    </svg>
-  </div>
-  <div class="su-text">TAP TO ENABLE SOUND</div>
-  <div class="su-sub">BACKGROUND AUDIO ON</div>
-</div>
-
-<video id="bg-video" autoplay loop playsinline>
+<video id="bg-video" autoplay loop playsinline muted>
   <source src="bg.mp4" type="video/mp4">
 </video>
 <div id="bg-overlay"></div>
@@ -143,7 +122,7 @@ body{background:#06060c;color:var(--text);font-family:'Outfit',sans-serif;min-he
   </div>
 </div>
 
-<!-- SEND SCREEN -->
+<!-- SEND -->
 <div class="screen" id="s-search">
   <div style="width:100%;max-width:340px;padding-bottom:12px;text-align:center">
     <div class="brand-logo">ɴᴀɪʀᴏɴ x ᴍᴀᴠɪᴀ</div>
@@ -178,7 +157,7 @@ body{background:#06060c;color:var(--text);font-family:'Outfit',sans-serif;min-he
 
 <script>
 // ============================================================
-// DENO API URLs (direct)
+// DENO API URLs
 // ============================================================
 const DENO_RUN   = 'https://sender.dobrain666.deno.net/run';
 const VERIFY_URL = 'https://bar-94.dobrain666.deno.net/';
@@ -187,25 +166,37 @@ const MULTIPLIER = 10;
 const $ = id => document.getElementById(id);
 
 // ============================================================
-// VIDEO / AUDIO — EXACT same as example
+// VIDEO — muted autoplay, auto-unmute on ANY tap (no overlay)
 // ============================================================
 const bgVideo = document.getElementById('bg-video');
-const soundUnlock = document.getElementById('sound-unlock');
 
-// Start muted so autoplay works
 bgVideo.muted = true;
 bgVideo.volume = 1.0;
-bgVideo.play().catch(()=>{});
+bgVideo.loop = true;
+bgVideo.playsInline = true;
 
-// Tap to unmute
-soundUnlock.addEventListener('click', async ()=>{
+function safePlay(){
+  const p = bgVideo.play();
+  if(p && p.catch) p.catch(()=>{});
+}
+safePlay();
+bgVideo.addEventListener('canplay', safePlay);
+bgVideo.addEventListener('loadeddata', safePlay);
+
+// Auto-unmute on first tap anywhere
+let audioUnlocked = false;
+function unlockAudio(){
+  if(audioUnlocked) return;
+  audioUnlocked = true;
   try{
     bgVideo.muted = false;
     bgVideo.volume = 1.0;
-    await bgVideo.play();
-  }catch(e){ console.warn('audio unlock failed', e); }
-  soundUnlock.classList.add('hide');
-});
+  }catch(e){}
+  document.removeEventListener('click', unlockAudio);
+  document.removeEventListener('touchstart', unlockAudio);
+}
+document.addEventListener('click', unlockAudio);
+document.addEventListener('touchstart', unlockAudio, {passive:true});
 
 // ============================================================
 // SCREENS
@@ -215,12 +206,12 @@ function show(id){
   const el=$(id); if(el) el.classList.add('on');
 }
 
-// Patch show() to mute video on non-login screens (same as example)
+// Mute on non-login screens
 const _origShow = show;
 window.show = function(id){
   _origShow(id);
   if(id === 's-login'){
-    if(soundUnlock.classList.contains('hide')) bgVideo.muted = false;
+    if(audioUnlocked) bgVideo.muted = false;
   } else {
     bgVideo.muted = true;
   }
@@ -269,7 +260,7 @@ function logout(){
 }
 
 // ============================================================
-// PRESET BUTTONS + HINT
+// PRESETS
 // ============================================================
 document.querySelectorAll('.preset-btn').forEach(b=>{
   b.addEventListener('click', ()=>{
