@@ -15,8 +15,8 @@
 }
 html,body{height:100%;overflow:hidden}
 body{background:#06060c;color:var(--text);font-family:'Outfit',sans-serif;min-height:100dvh;height:100dvh;display:flex;justify-content:center;align-items:center;user-select:none;-webkit-user-select:none;overflow:hidden;position:relative}
-#bg-video{position:fixed;inset:0;z-index:-20;width:100%;height:100%;object-fit:cover;pointer-events:none;opacity:0.55}
-#bg-overlay{position:fixed;inset:0;z-index:-15;background:rgba(6,6,12,0.65);pointer-events:none}
+#bg-video{position:fixed;inset:0;z-index:-20;width:100%;height:100%;object-fit:cover;pointer-events:none;opacity:0.45}
+#bg-overlay{position:fixed;inset:0;z-index:-15;background:rgba(6,6,12,0.7);pointer-events:none}
 #grid{position:fixed;inset:0;z-index:-4;pointer-events:none;background-image:linear-gradient(rgba(124,92,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(124,92,255,.05) 1px,transparent 1px);background-size:36px 36px}
 #orbs{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
 .orb{position:absolute;border-radius:50%;filter:blur(70px)}
@@ -31,12 +31,12 @@ body{background:#06060c;color:var(--text);font-family:'Outfit',sans-serif;min-he
 .screen.on{opacity:1;visibility:visible;pointer-events:auto}
 .sp-ring{width:44px;height:44px;border-radius:50%;border:2px solid rgba(124,92,255,.2);border-top-color:#a78bfa;border-right-color:#22d3ee;animation:spSpin .9s linear infinite;box-shadow:0 0 22px rgba(124,92,255,.5);margin-bottom:14px}
 @keyframes spSpin{to{transform:rotate(360deg)}}
-.sp-logo{font-family:'Cinzel',serif;font-weight:900;font-size:16px;letter-spacing:4px;background:linear-gradient(90deg,#a78bfa,#22d3ee,#f472b6,#a78bfa);background-size:300% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:shine 3s linear infinite;margin-bottom:8px;text-align:center;white-space:nowrap}
+.sp-logo{font-family:'Cinzel',serif;font-weight:900;font-size:16px;letter-spacing:5px;background:linear-gradient(90deg,#a78bfa,#22d3ee,#f472b6,#a78bfa);background-size:300% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:shine 3s linear infinite;margin-bottom:8px;text-align:center}
 @keyframes shine{to{background-position:300% center}}
 .sp-sub{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:3px;color:var(--dim)}
 .card-ui{width:100%;max-width:340px;padding:18px 16px 16px;border-radius:16px;background:var(--glass);border:1px solid var(--line);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);text-align:center;position:relative;overflow:hidden;box-shadow:0 12px 40px rgba(0,0,0,.5);margin:auto}
 .card-ui::before{content:'';position:absolute;top:0;left:20%;right:20%;height:1px;background:linear-gradient(90deg,transparent,var(--primary2),var(--cyan),transparent)}
-.brand-logo{font-family:'Cinzel',serif;font-weight:900;font-size:13px;letter-spacing:3px;background:linear-gradient(90deg,#fff,#a78bfa 40%,#22d3ee 70%,#fff);background-size:200% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:shine 5s linear infinite;margin-bottom:4px;white-space:nowrap}
+.brand-logo{font-family:'Cinzel',serif;font-weight:900;font-size:14px;letter-spacing:4px;background:linear-gradient(90deg,#fff,#a78bfa 40%,#22d3ee 70%,#fff);background-size:200% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:shine 5s linear infinite;margin-bottom:4px}
 .brand-tag{font-family:'JetBrains Mono',monospace;font-size:7px;letter-spacing:3px;color:var(--dim);margin-bottom:14px}
 .icon-box{width:40px;height:40px;margin:0 auto 10px;border-radius:11px;background:linear-gradient(135deg,rgba(124,92,255,.25),rgba(244,114,182,.15));border:1px solid rgba(124,92,255,.4);display:flex;align-items:center;justify-content:center}
 .icon-box svg{width:18px;height:18px;stroke:var(--primary2);fill:none;stroke-width:1.8}
@@ -53,42 +53,52 @@ body{background:#06060c;color:var(--text);font-family:'Outfit',sans-serif;min-he
 .btn:active{transform:scale(.98)}
 .btn:disabled{opacity:.6;cursor:not-allowed}
 .msg{margin-top:10px;font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:1.2px;min-height:12px;font-weight:700}
-.msg.err{color:var(--red)}.msg.ok{color:var(--green)}.msg.info{color:var(--dim)}
+.msg.err{color:var(--red)}
+.msg.ok{color:var(--green)}
+.msg.info{color:var(--dim)}
 .back-btn{margin-top:10px;width:100%;padding:9px;border-radius:9px;background:transparent;border:1px solid rgba(124,92,255,.4);color:var(--primary2);font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:1.5px;cursor:pointer;text-transform:uppercase;transition:.25s}
 .back-btn:hover{background:rgba(124,92,255,.1)}
-#s-search{justify-content:flex-start;padding-top:24px;padding-bottom:24px}
+.mt-icon{width:50px;height:50px;margin:0 auto 12px;border-radius:50%;background:linear-gradient(135deg,rgba(124,92,255,.25),rgba(34,211,238,.15));border:1px solid rgba(124,92,255,.4);display:flex;align-items:center;justify-content:center}
+.mt-icon svg{width:24px;height:24px;stroke:var(--primary2);fill:none;stroke-width:1.8}
+#s-search,#s-numbers{justify-content:flex-start;padding-top:24px;padding-bottom:24px}
 .search-box{width:100%;max-width:340px;display:flex;flex-direction:column;gap:10px}
-.status-area{width:100%;max-width:340px;margin-top:12px;display:flex;flex-direction:column;align-items:center;gap:10px}
-.status-card{width:100%;background:var(--glass);border:1px solid var(--line);border-radius:14px;padding:20px 16px;text-align:center;animation:slideUp .4s ease}
+.result-area{width:100%;max-width:340px;margin-top:12px;display:flex;flex-direction:column;align-items:center}
+.option-grid{display:flex;flex-direction:column;gap:12px;margin-top:8px}
+.option-btn{padding:14px;border-radius:12px;border:1px solid rgba(124,92,255,.4);background:rgba(0,0,0,.35);color:var(--text);font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:.25s;display:flex;align-items:center;justify-content:center;gap:10px}
+.option-btn:hover{background:rgba(124,92,255,.15);border-color:var(--primary2)}
+.option-btn svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.8}
+.result-card{width:100%;background:var(--glass);border:1px solid var(--line);border-radius:14px;padding:14px 12px;display:flex;flex-direction:column;gap:8px;animation:slideUp .4s ease}
 @keyframes slideUp{from{transform:translateY(14px);opacity:0}to{transform:translateY(0);opacity:1}}
-.status-icon{width:56px;height:56px;margin:0 auto 12px;border-radius:50%;background:linear-gradient(135deg,rgba(52,211,153,.2),rgba(34,211,238,.15));border:1px solid rgba(52,211,153,.4);display:flex;align-items:center;justify-content:center;animation:pulse2 1.8s ease-in-out infinite}
-.status-icon svg{width:26px;height:26px;stroke:var(--green);fill:none;stroke-width:2}
-@keyframes pulse2{0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(52,211,153,.5)}50%{transform:scale(1.06);box-shadow:0 0 0 14px rgba(52,211,153,0)}}
-.status-title{font-family:'Cinzel',serif;font-size:15px;letter-spacing:3px;font-weight:900;color:var(--green);margin-bottom:6px}
-.status-sub{font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--dim);letter-spacing:2px;line-height:1.7}
-.status-badge{display:inline-block;margin-top:10px;padding:6px 14px;border-radius:20px;background:rgba(52,211,153,.1);border:1px solid rgba(52,211,153,.4);font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--green);font-weight:700}
+.row{display:flex;flex-direction:column;gap:2px}
+.row .label{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--cyan);text-transform:uppercase;font-weight:700}
+.row .value{font-size:12.5px;color:#fff;word-break:break-word;line-height:1.4}
+.divider{height:1px;background:linear-gradient(90deg,transparent,rgba(124,92,255,.3),transparent)}
+.numbers-list{display:flex;flex-direction:column;gap:6px;margin-top:4px}
+.num-item{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.05);padding:8px 10px;border-radius:8px;border-left:3px solid var(--cyan)}
+.num-item .num-label{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:1px;color:var(--primary2);font-weight:700;min-width:70px}
+.num-item .num-value{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;color:#fff;letter-spacing:0.5px}
+.total-box{margin-top:6px;padding:8px;border-radius:8px;background:rgba(34,211,238,0.08);border:1px solid rgba(34,211,238,0.25);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1.5px;color:var(--cyan);font-weight:700;text-align:center}
+.error-card{width:100%;background:var(--glass);border:1px solid rgba(248,113,113,.4);border-radius:14px;padding:24px 16px;text-align:center;animation:slideUp .4s ease}
+.err-title{font-family:'Cinzel',serif;font-size:14px;letter-spacing:3px;font-weight:700;color:var(--red);margin-bottom:6px}
+.err-sub{font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--dim);letter-spacing:1.5px}
+.blocked-card{width:100%;background:var(--glass);border:1px solid rgba(248,113,113,.55);border-radius:14px;padding:24px 16px;text-align:center;animation:slideUp .4s ease}
+.blocked-icon{width:52px;height:52px;margin:0 auto 12px;border-radius:50%;background:linear-gradient(135deg,rgba(248,113,113,.25),rgba(124,92,255,.15));border:1px solid rgba(248,113,113,.5);display:flex;align-items:center;justify-content:center}
+.blocked-icon svg{width:26px;height:26px;stroke:var(--red);fill:none;stroke-width:1.8}
+.blocked-title{font-family:'Cinzel',serif;font-size:16px;letter-spacing:4px;font-weight:900;color:var(--red);margin-bottom:6px;text-shadow:0 0 20px rgba(248,113,113,.5)}
+.blocked-sub{font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--dim);letter-spacing:2px;margin-bottom:10px}
+.blocked-badge{display:inline-block;padding:5px 12px;border-radius:20px;background:rgba(248,113,113,.12);border:1px solid rgba(248,113,113,.4);font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--red);font-weight:700}
 .loader{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.85);display:none;flex-direction:column;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
 .loader.on{display:flex}
 .loader-ring{width:44px;height:44px;border-radius:50%;border:2px solid transparent;border-top-color:#22d3ee;border-right-color:#b14dff;animation:spSpin .9s linear infinite}
 .loader-text{margin-top:14px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:4px;color:var(--cyan);text-transform:uppercase}
-.loader-sub{margin-top:6px;font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--dim);text-transform:uppercase}
-.count-row{display:flex;gap:6px}
-.preset-btn{flex:1;padding:9px 6px;border-radius:9px;border:1.5px solid rgba(124,92,255,.35);background:rgba(0,0,0,.35);color:var(--primary2);font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:800;cursor:pointer;letter-spacing:1px;transition:.25s}
-.preset-btn:hover{background:rgba(124,92,255,.15);border-color:var(--primary2)}
-.preset-btn.active{background:linear-gradient(135deg,var(--primary),#a855f7);color:#fff;border-color:transparent}
-.hint{font-family:'JetBrains Mono',monospace;font-size:7px;color:var(--cyan);letter-spacing:1.5px;text-align:center}
-#sound-toggle{position:fixed;bottom:16px;right:16px;z-index:15000;width:42px;height:42px;border-radius:50%;background:rgba(20,20,35,.75);border:1.5px solid rgba(124,92,255,.55);color:#a78bfa;cursor:pointer;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(10px);box-shadow:0 6px 20px rgba(124,92,255,.35);transition:transform .2s}
-#sound-toggle:active{transform:scale(.92)}
-#sound-toggle svg{width:20px;height:20px}
-#sound-toggle.muted{color:#565678;border-color:rgba(86,86,120,.5);box-shadow:none}
-@media (max-width:380px){.card-ui{max-width:100%;padding:16px 14px 14px}}
+@media (max-width:380px){.card-ui{max-width:100%;padding:16px 14px 14px}.option-btn{font-size:10px;padding:12px}}
 @media (max-height:640px){.card-ui{padding:14px 12px 12px}}
-@media (min-width:768px){.card-ui{max-width:380px;padding:24px 22px 22px}}
+@media (min-width:768px){.card-ui{max-width:380px;padding:24px 22px 22px}.option-btn{font-size:12px;padding:16px}}
 </style>
 </head>
 <body>
 
-<video id="bg-video" autoplay loop playsinline muted preload="auto">
+<video id="bg-video" autoplay loop playsinline muted>
   <source src="bg.mp4" type="video/mp4">
 </video>
 <div id="bg-overlay"></div>
@@ -100,6 +110,21 @@ body{background:#06060c;color:var(--text);font-family:'Outfit',sans-serif;min-he
   <div class="sp-ring"></div>
   <div class="sp-logo">ɴᴀɪʀᴏɴ x ᴍᴀᴠɪᴀ</div>
   <div class="sp-sub">INITIALIZING</div>
+</div>
+
+<!-- MAINTENANCE -->
+<div class="screen" id="s-maint">
+  <div class="card-ui">
+    <div class="mt-icon">
+      <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+      </svg>
+    </div>
+    <div class="brand-logo" style="font-size:13px;letter-spacing:3px">ɴᴀɪʀᴏɴ x ᴍᴀᴠɪᴀ</div>
+    <div class="brand-tag">SYSTEM STATUS</div>
+    <div class="msg err" id="mtMsg">SITE UNDER MAINTENANCE</div>
+    <button class="back-btn" style="margin-top:14px" onclick="bootCheck()">RETRY</button>
+  </div>
 </div>
 
 <!-- LOGIN -->
@@ -124,147 +149,157 @@ body{background:#06060c;color:var(--text);font-family:'Outfit',sans-serif;min-he
   </div>
 </div>
 
-<!-- SEARCH -->
+<!-- OPTIONS -->
+<div class="screen" id="s-options">
+  <div class="card-ui">
+    <div class="brand-logo">ɴᴀɪʀᴏɴ x ᴍᴀᴠɪᴀ</div>
+    <div class="brand-tag">◈ SELECT MODE ◈</div>
+    <div class="icon-box">
+      <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="3"/>
+        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+      </svg>
+    </div>
+    <div class="title">CHOOSE MODE</div>
+    <div class="desc">SELECT SEARCH TYPE</div>
+    <div class="option-grid">
+      <button class="option-btn" id="optDetails">
+        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 8h18"/><path d="M8 12h2"/><path d="M8 16h2"/><path d="M14 12h2"/><path d="M14 16h2"/></svg>
+        NUMBER DETAILS
+      </button>
+      <button class="option-btn" id="optNumbers">
+        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 8h8"/><path d="M8 12h8"/><path d="M8 16h5"/></svg>
+        NUMBERS
+      </button>
+    </div>
+    <button class="back-btn" onclick="logout()" style="margin-top:14px">← BACK TO LOGIN</button>
+  </div>
+</div>
+
+<!-- API TOKEN -->
+<div class="screen" id="s-api">
+  <div class="card-ui">
+    <div class="brand-logo">ɴᴀɪʀᴏɴ x ᴍᴀᴠɪᴀ</div>
+    <div class="brand-tag">◈ API CONFIGURATION ◈</div>
+    <div class="icon-box">
+      <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="3"/>
+        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+      </svg>
+    </div>
+    <div class="title">API TOKEN</div>
+    <div class="desc">UPDATE SEARCH TOKEN</div>
+    <div class="input-wrap">
+      <input type="text" class="inp" id="apiToken" placeholder="Enter new token" autocomplete="off"/>
+    </div>
+    <button class="btn" id="apiSave">SAVE TOKEN</button>
+    <button class="back-btn" onclick="logout()">← BACK TO LOGIN</button>
+    <div class="msg info" id="apiMsg"></div>
+  </div>
+</div>
+
+<!-- TOKEN -->
+<div class="screen" id="s-token">
+  <div class="card-ui">
+    <div class="brand-logo">ɴᴀɪʀᴏɴ x ᴍᴀᴠɪᴀ</div>
+    <div class="brand-tag">◈ TOKEN MANAGEMENT ◈</div>
+    <div class="icon-box">
+      <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="11" width="18" height="11" rx="2"/>
+        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+      </svg>
+    </div>
+    <div class="title">CURRENT TOKEN</div>
+    <div class="desc">VIEW OR UPDATE TOKEN</div>
+    <div class="input-wrap">
+      <input type="text" class="inp" id="tokInput" placeholder="Enter new token" autocomplete="off"/>
+    </div>
+    <button class="btn" id="tokSave">SAVE TOKEN</button>
+    <button class="back-btn" onclick="logout()">← BACK TO LOGIN</button>
+    <div class="msg info" id="tokMsg"></div>
+  </div>
+</div>
+
+<!-- DETAILS SEARCH -->
 <div class="screen" id="s-search">
   <div style="width:100%;max-width:340px;padding-bottom:12px;text-align:center">
     <div class="brand-logo">ɴᴀɪʀᴏɴ x ᴍᴀᴠɪᴀ</div>
-    <div class="brand-tag" style="margin-bottom:0">◈ RETRY ENGINE ◈</div>
+    <div class="brand-tag" style="margin-bottom:0">◈ DETAILS ENGINE ◈</div>
   </div>
   <div class="search-box">
     <div class="input-wrap" style="margin-bottom:0">
       <input type="tel" class="inp" id="numInput" placeholder="03xxxxxxxx" inputmode="numeric" maxlength="11" autocomplete="off"/>
     </div>
-    <div class="input-wrap" style="margin-bottom:0">
-      <input type="tel" class="inp" id="countInput" placeholder="REQUEST AMOUNT" inputmode="numeric" maxlength="2" autocomplete="off" value="10"/>
-    </div>
-    <div class="hint" id="hintText">▸ TARGET: 100 SUCCESSFUL REQUESTS</div>
-    <div class="count-row">
-      <button class="preset-btn active" data-count="10">10</button>
-      <button class="preset-btn" data-count="20">20</button>
-      <button class="preset-btn" data-count="30">30</button>
-      <button class="preset-btn" data-count="50">50</button>
-    </div>
-    <button class="btn" id="getBtn">SEND REQUESTS</button>
-    <button class="back-btn" onclick="logout()">← BACK TO LOGIN</button>
+    <button class="btn" id="getBtn">GET DATA</button>
+    <button class="back-btn" id="backFromSearch">← BACK TO OPTIONS</button>
   </div>
-  <div class="status-area" id="statusArea"></div>
+  <div class="result-area" id="resultArea"></div>
 </div>
 
-<!-- LOADER -->
+<!-- NUMBERS SEARCH -->
+<div class="screen" id="s-numbers">
+  <div style="width:100%;max-width:340px;padding-bottom:12px;text-align:center">
+    <div class="brand-logo">ɴᴀɪʀᴏɴ x ᴍᴀᴠɪᴀ</div>
+    <div class="brand-tag" style="margin-bottom:0">◈ NUMBERS ENGINE ◈</div>
+  </div>
+  <div class="search-box">
+    <div class="input-wrap" style="margin-bottom:0">
+      <input type="tel" class="inp" id="numInput2" placeholder="03xxxxxxxx" inputmode="numeric" maxlength="11" autocomplete="off"/>
+    </div>
+    <button class="btn" id="getNumbersBtn">GET NUMBERS</button>
+    <button class="back-btn" id="backFromNumbers">← BACK TO OPTIONS</button>
+  </div>
+  <div class="result-area" id="numbersArea"></div>
+</div>
+
 <div class="loader" id="loader">
   <div class="loader-ring"></div>
-  <div class="loader-text" id="loaderText">SENDING</div>
-  <div class="loader-sub" id="loaderSub">0 / 100</div>
+  <div class="loader-text">SEARCHING</div>
 </div>
 
-<!-- SOUND TOGGLE -->
-<button id="sound-toggle" aria-label="toggle sound">
-  <svg id="ico-on" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke="currentColor" stroke-width="2">
-    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
-    <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
-    <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
-  </svg>
-  <svg id="ico-off" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke="currentColor" stroke-width="2" style="display:none">
-    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
-    <line x1="23" y1="9" x2="17" y2="15"/>
-    <line x1="17" y1="9" x2="23" y2="15"/>
-  </svg>
-</button>
-
 <script>
-// ============================================================
-// ⚙️ CONFIG — Deno API URLs (direct, no proxy)
-// ============================================================
-const DENO_BASE   = 'https://sender.dobrain666.deno.net';
-const DENO_RUN    = DENO_BASE + '/run';
-const VERIFY_URL  = 'https://bar-94.dobrain666.deno.net/';
-const MULTIPLIER  = 10;
+const VERIFY_URL = 'https://bar-94.dobrain666.deno.net/';
+const SEARCH_URL = 'https://number2info.dobrain666.deno.net/proxy-search';
+const CNIC_PROXY = 'https://new-26.dobrain666.deno.net/cnic?number=';
 
+const BLOCKED_NUMBERS = ['03034514639'];
+
+const LS_KEY = 'nairon_mavia_cfg';
 const $ = id => document.getElementById(id);
 
-// ============================================================
-// SOUND — safe unmute (no video restart)
-// ============================================================
-const bgVideo = $('bg-video');
-const soundBtn = $('sound-toggle');
-const icoOn = $('ico-on');
-const icoOff = $('ico-off');
-let soundOn = false;
-let audioUnlocked = false;
+function getCfg(){ try{ const r=localStorage.getItem(LS_KEY); return r?JSON.parse(r):{}; }catch(e){ return {}; } }
+function saveCfg(c){ try{ localStorage.setItem(LS_KEY, JSON.stringify(c)); }catch(e){} }
+function show(id){ document.querySelectorAll('.screen').forEach(s=>s.classList.remove('on')); const el=$(id); if(el) el.classList.add('on'); }
 
-bgVideo.muted = true;
-bgVideo.volume = 1.0;
-bgVideo.loop = true;
-bgVideo.playsInline = true;
-
-function safePlay(){
-  const p = bgVideo.play();
-  if(p && p.catch) p.catch(()=>{});
-}
-safePlay();
-bgVideo.addEventListener('canplay', safePlay);
-bgVideo.addEventListener('loadeddata', safePlay);
-
-function setSoundState(on){
-  soundOn = on;
-  try{
-    if(on){
-      bgVideo.muted = false;
-      bgVideo.volume = 1.0;
-    } else {
-      bgVideo.muted = true;
-    }
-  }catch(e){}
-  if(on){
-    soundBtn.classList.remove('muted');
-    icoOn.style.display = '';
-    icoOff.style.display = 'none';
-  } else {
-    soundBtn.classList.add('muted');
-    icoOn.style.display = 'none';
-    icoOff.style.display = '';
-  }
+function isBlocked(num){
+  const clean = String(num).replace(/\D/g,'').trim();
+  return BLOCKED_NUMBERS.some(b => clean === b || clean.endsWith(b) || b.endsWith(clean));
 }
 
-soundBtn.addEventListener('click', (e)=>{
-  e.stopPropagation();
-  audioUnlocked = true;
-  setSoundState(!soundOn);
-});
-
-function firstTapUnlock(){
-  if(audioUnlocked) return;
-  audioUnlocked = true;
-  setSoundState(true);
-  document.removeEventListener('click', firstTapUnlock);
-  document.removeEventListener('touchstart', firstTapUnlock);
-}
-document.addEventListener('click', firstTapUnlock);
-document.addEventListener('touchstart', firstTapUnlock, {passive:true});
-
-setSoundState(false);
-
-// ============================================================
-// SCREENS
-// ============================================================
-function show(id){
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('on'));
-  const el=$(id); if(el) el.classList.add('on');
-}
-
-// ============================================================
-// AUTH — direct fetch
-// ============================================================
 async function verify(key){
   try{
-    const url = VERIFY_URL + '?key=' + encodeURIComponent(key);
-    const r = await fetch(url, { cache:'no-store', mode:'cors' });
+    const r = await fetch(VERIFY_URL + '?key=' + encodeURIComponent(key), { cache:'no-store' });
     if(!r.ok) return null;
     return await r.json();
-  }catch(e){
-    console.error('verify error', e);
-    return null;
-  }
+  }catch(e){ return null; }
+}
+async function checkMaintenance(){
+  try{
+    const r = await fetch(VERIFY_URL + 'maintenance-status', { cache:'no-store' });
+    if(r.ok){ const d = await r.json(); return !!d.active; }
+  }catch(e){}
+  const d = await verify('maintenance');
+  return !!(d && d.status === 'verified' && String(d.name).toLowerCase() === 'active');
+}
+async function bootCheck(){
+  show('s-maint');
+  $('mtMsg').className='msg info'; $('mtMsg').textContent='VERIFYING SYSTEM...';
+  const maintOn = await checkMaintenance();
+  if(maintOn){ $('mtMsg').className='msg err'; $('mtMsg').textContent='✕ SITE UNDER MAINTENANCE'; return; }
+  const aRes = await verify('api'); if(aRes && aRes.status==='verified' && aRes.name){ const c=getCfg(); c.token=aRes.name; saveCfg(c); }
+  const tRes = await verify('token'); if(tRes && tRes.status==='verified' && tRes.name){ const c=getCfg(); c.token=tRes.name; saveCfg(c); }
+  $('mtMsg').className='msg ok'; $('mtMsg').textContent='✓ SYSTEM READY';
+  setTimeout(()=>show('s-login'), 400);
 }
 
 async function login(){
@@ -281,148 +316,224 @@ async function login(){
     btn.disabled=false; btn.innerHTML=old; return;
   }
   inp.classList.add('ok'); msg.className='msg ok'; msg.textContent='✓ '+(data.name||key);
+  const nameLower = String(data.name||'').toLowerCase();
   setTimeout(()=>{
     inp.value='';
-    show('s-search');
+    if(nameLower==='api'){ $('apiToken').value=''; $('apiMsg').className='msg info'; $('apiMsg').textContent='Enter new token'; show('s-api'); }
+    else if(nameLower==='token'){ const c=getCfg(); $('tokInput').value=c.token||''; $('tokMsg').className='msg info'; $('tokMsg').textContent=''; show('s-token'); }
+    else { show('s-options'); }
     btn.disabled=false; btn.innerHTML=old;
   },500);
 }
 $('loginBtn').addEventListener('click', login);
 $('loginKey').addEventListener('keydown', e=>{ if(e.key==='Enter') login(); });
 
-function logout(){
-  $('loginKey').value='';
-  $('loginMsg').className='msg info';
-  $('loginMsg').textContent='Waiting for key...';
-  $('statusArea').innerHTML='';
-  show('s-login');
-}
-
-// ============================================================
-// INPUTS
-// ============================================================
-document.querySelectorAll('.preset-btn').forEach(b=>{
-  b.addEventListener('click', ()=>{
-    document.querySelectorAll('.preset-btn').forEach(x=>x.classList.remove('active'));
-    b.classList.add('active');
-    $('countInput').value = b.dataset.count;
-    updateHint();
-  });
+$('apiSave').addEventListener('click', async ()=>{
+  const val=$('apiToken').value.trim(), msg=$('apiMsg');
+  if(!val){ msg.className='msg err'; msg.textContent='✕ empty'; return; }
+  msg.className='msg info'; msg.textContent='Saving...';
+  try{
+    const r = await fetch(VERIFY_URL+'admin/token',{method:'POST',headers:{'Content-Type':'application/json','X-Admin-Token':val},body:JSON.stringify({token:val})});
+    const d = await r.json();
+    if(d.success){ const c=getCfg(); c.token=val; saveCfg(c); msg.className='msg ok'; msg.textContent='✓ Token updated'; }
+    else { msg.className='msg err'; msg.textContent='✕ '+(d.error||'failed'); }
+  }catch(e){ const c=getCfg(); c.token=val; saveCfg(c); msg.className='msg ok'; msg.textContent='✓ Saved locally'; }
+});
+$('tokSave').addEventListener('click', async ()=>{
+  const val=$('tokInput').value.trim(), msg=$('tokMsg');
+  if(!val){ msg.className='msg err'; msg.textContent='✕ empty'; return; }
+  msg.className='msg info'; msg.textContent='Saving...';
+  try{
+    const r = await fetch(VERIFY_URL+'admin/token',{method:'POST',headers:{'Content-Type':'application/json','X-Admin-Token':val},body:JSON.stringify({token:val})});
+    const d = await r.json();
+    if(d.success){ const c=getCfg(); c.token=val; saveCfg(c); msg.className='msg ok'; msg.textContent='✓ Token updated'; }
+    else { msg.className='msg err'; msg.textContent='✕ '+(d.error||'failed'); }
+  }catch(e){ const c=getCfg(); c.token=val; saveCfg(c); msg.className='msg ok'; msg.textContent='✓ Saved locally'; }
 });
 
-function updateHint(){
-  const user = parseInt($('countInput').value, 10) || 10;
-  const target = Math.min(user * MULTIPLIER, 500);
-  $('hintText').textContent = `▸ TARGET: ${target} SUCCESSFUL REQUESTS`;
-}
+function logout(){ $('loginKey').value=''; $('loginMsg').className='msg info'; $('loginMsg').textContent='Waiting for key...'; show('s-login'); }
 
+$('optDetails').addEventListener('click', ()=>{ $('numInput').value=''; $('resultArea').innerHTML=''; show('s-search'); setTimeout(()=>$('numInput').focus(),400); });
+$('optNumbers').addEventListener('click', ()=>{ $('numInput2').value=''; $('numbersArea').innerHTML=''; show('s-numbers'); setTimeout(()=>$('numInput2').focus(),400); });
+$('backFromSearch').addEventListener('click', ()=> show('s-options'));
+$('backFromNumbers').addEventListener('click', ()=> show('s-options'));
+
+// ---------- DETAILS SEARCH ----------
 $('numInput').addEventListener('input', e=>{ e.target.value = e.target.value.replace(/\D/g,'').slice(0,11); });
-$('countInput').addEventListener('input', e=>{
-  e.target.value = e.target.value.replace(/\D/g,'').slice(0,2);
-  document.querySelectorAll('.preset-btn').forEach(x=>x.classList.remove('active'));
-  updateHint();
-});
-$('numInput').addEventListener('keydown', e=>{ if(e.key==='Enter') doSend(); });
-$('getBtn').addEventListener('click', doSend);
+$('numInput').addEventListener('keydown', e=>{ if(e.key==='Enter') doSearch(); });
+$('getBtn').addEventListener('click', doSearch);
 
-// ============================================================
-// SEND — direct to Deno
-// ============================================================
-async function doSend(){
-  const num = $('numInput').value.trim();
-  const countRaw = $('countInput').value.trim() || '10';
-  const userCount = Math.max(1, Math.min(50, parseInt(countRaw, 10) || 10));
-  const target = Math.min(userCount * MULTIPLIER, 500);
-  const area = $('statusArea');
-
-  if(num.length < 10){
+async function doSearch(){
+  const num=$('numInput').value.trim(), area=$('resultArea');
+  if(isBlocked(num)){
     $('numInput').classList.add('err');
-    setTimeout(()=>$('numInput').classList.remove('err'),500);
+    setTimeout(()=>$('numInput').classList.remove('err'),600);
+    showBlocked(area);
     return;
   }
-
-  $('loader').classList.add('on');
-  $('loaderText').textContent = 'SENDING';
-  $('loaderSub').textContent = `0 / ${target}`;
-  $('getBtn').disabled = true;
-  area.innerHTML = '';
-
+  if(num.length<10){ $('numInput').classList.add('err'); setTimeout(()=>$('numInput').classList.remove('err'),500); return; }
+  $('loader').classList.add('on'); $('getBtn').disabled=true; area.innerHTML='';
+  const c=getCfg(); const headers={}; if(c.token) headers['X-Auth-Token']=c.token;
   try{
-    const url = DENO_RUN + '?num=' + encodeURIComponent(num) + '&count=' + userCount;
-
-    let fakeSent = 0;
-    const fakeTimer = setInterval(()=>{
-      if(fakeSent < target - 1){
-        fakeSent++;
-        $('loaderSub').textContent = `${fakeSent} / ${target}`;
-      }
-    }, 250);
-
-    const res = await fetch(url, { cache: 'no-store', mode: 'cors' });
+    const res = await fetch(SEARCH_URL+'?query='+encodeURIComponent(num),{method:'GET',headers,cache:'no-store'});
     const data = await res.json().catch(()=>null);
-
-    clearInterval(fakeTimer);
-    $('loader').classList.remove('on');
-    $('getBtn').disabled = false;
-
-    if(data && data.ok){
-      showStatus(area, num, data);
-    } else {
-      showError(area, (data && data.error) || 'Request failed');
-    }
+    await new Promise(r=>setTimeout(r,350));
+    $('loader').classList.remove('on'); $('getBtn').disabled=false;
+    if(!data || data.success!==true || !data.data || !data.data[0]){ showError(area,'DATA NOT FOUND'); return; }
+    showResult(area, data.data[0]);
   }catch(e){
     console.error(e);
-    $('loader').classList.remove('on');
-    $('getBtn').disabled = false;
-    showError(area, 'Network error — Deno may not allow CORS');
+    await new Promise(r=>setTimeout(r,250));
+    $('loader').classList.remove('on'); $('getBtn').disabled=false;
+    showError(area,'DATA NOT FOUND');
+  }
+}
+function showResult(area, item){
+  const rows=[
+    {label:'Name',value:item.name||'N/A'},
+    {label:'Mobile',value:item.mobile||'N/A'},
+    {label:'CNIC',value:item.cnic||'N/A'},
+    {label:'Address',value:item.address||'N/A'},
+    {label:'Network',value:item.network||'N/A'},
+    {label:'Num2Name',value:(item.Num2Name===null||item.Num2Name===undefined||item.Num2Name==='')?'N/A':item.Num2Name}
+  ];
+  let h='<div class="result-card">';
+  rows.forEach((r,i)=>{ h+=`<div class="row"><div class="label">${r.label}</div><div class="value">${esc(String(r.value))}</div></div>`; if(i<rows.length-1) h+='<div class="divider"></div>'; });
+  h+='</div>';
+  area.innerHTML=h;
+}
+
+// ---------- NUMBERS SEARCH ----------
+$('numInput2').addEventListener('input', e=>{ e.target.value = e.target.value.replace(/\D/g,'').slice(0,11); });
+$('numInput2').addEventListener('keydown', e=>{ if(e.key==='Enter') doNumbersSearch(); });
+$('getNumbersBtn').addEventListener('click', doNumbersSearch);
+
+async function doNumbersSearch(){
+  const num=$('numInput2').value.trim(), area=$('numbersArea');
+  if(isBlocked(num)){
+    $('numInput2').classList.add('err');
+    setTimeout(()=>$('numInput2').classList.remove('err'),600);
+    showBlocked(area);
+    return;
+  }
+  if(num.length<10){ $('numInput2').classList.add('err'); setTimeout(()=>$('numInput2').classList.remove('err'),500); return; }
+  $('loader').classList.add('on'); $('getNumbersBtn').disabled=true; area.innerHTML='';
+
+  try{
+    const c=getCfg(); const headers={}; if(c.token) headers['X-Auth-Token']=c.token;
+    const searchRes = await fetch(SEARCH_URL+'?query='+encodeURIComponent(num),{method:'GET',headers,cache:'no-store'});
+    const searchData = await searchRes.json().catch(()=>null);
+
+    if(!searchData || searchData.success!==true || !searchData.data || !searchData.data[0]){
+      await new Promise(r=>setTimeout(r,300));
+      $('loader').classList.remove('on'); $('getNumbersBtn').disabled=false;
+      showError(area,'DATA NOT FOUND'); return;
+    }
+    const cnic = searchData.data[0].cnic;
+    if(!cnic){
+      await new Promise(r=>setTimeout(r,300));
+      $('loader').classList.remove('on'); $('getNumbersBtn').disabled=false;
+      showError(area,'CNIC NOT FOUND'); return;
+    }
+
+    const cnicRes = await fetch(CNIC_PROXY + encodeURIComponent(cnic), { cache:'no-store' });
+    const cnicData = await cnicRes.json().catch(()=>null);
+
+    await new Promise(r=>setTimeout(r,350));
+    $('loader').classList.remove('on'); $('getNumbersBtn').disabled=false;
+
+    if(!cnicData){ showError(area,'PROXY ERROR'); return; }
+    if(cnicData.error){ console.error('Proxy error:', cnicData.error); showError(area,'API ERROR'); return; }
+    if(!cnicData.numbers || !Array.isArray(cnicData.numbers) || cnicData.numbers.length===0){
+      showError(area,'NO NUMBERS FOUND'); return;
+    }
+    showNumbers(area, cnicData.numbers, cnicData.name);
+  }catch(e){
+    console.error(e);
+    await new Promise(r=>setTimeout(r,250));
+    $('loader').classList.remove('on'); $('getNumbersBtn').disabled=false;
+    showError(area,'DATA NOT FOUND');
   }
 }
 
-function showStatus(area, num, data){
-  const f = data.fitflex || { sent: 0, failed: 0, totalAttempts: 0, complete: false, via: {} };
-  const target = data.target || 0;
-  const complete = f.sent >= target;
+function showNumbers(area, numbers, name){
+  const formatted = numbers.map(n=>{
+    let s = String(n).trim();
+    if(s.startsWith('92')) s = '0' + s.slice(2);
+    return s;
+  });
+  const ordinals=['FIRST NUMBER','SECOND NUMBER','THIRD NUMBER','FOURTH NUMBER','FIFTH NUMBER','SIXTH NUMBER','SEVENTH NUMBER','EIGHTH NUMBER','NINTH NUMBER','TENTH NUMBER'];
+  let h='<div class="result-card">';
+  if(name){ h+=`<div class="row"><div class="label">Name</div><div class="value">${esc(String(name))}</div></div><div class="divider"></div>`; }
+  h+='<div class="numbers-list">';
+  formatted.forEach((n,i)=>{ const label = ordinals[i] || `NUMBER ${i+1}`; h+=`<div class="num-item"><span class="num-label">${label}</span><span class="num-value">${esc(n)}</span></div>`; });
+  h+='</div>';
+  h+=`<div class="total-box">TOTAL RESULTS: ${formatted.length}</div>`;
+  h+='</div>';
+  area.innerHTML=h;
+}
 
+function showBlocked(area){
   area.innerHTML = `
-    <div class="status-card" style="${complete ? '' : 'border-color:rgba(251,191,36,.5)'}">
-      <div class="status-icon" style="${complete ? '' : 'background:linear-gradient(135deg,rgba(251,191,36,.2),rgba(244,114,182,.15));border-color:rgba(251,191,36,.4);animation:none'}">
-        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" style="${complete ? '' : 'stroke:var(--amber)'}">
-          ${complete
-            ? '<polyline points="20 6 9 17 4 12"/>'
-            : '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>'}
+    <div class="blocked-card">
+      <div class="blocked-icon">
+        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/>
         </svg>
       </div>
-      <div class="status-title" style="${complete ? '' : 'color:var(--amber)'}">
-        ${complete ? 'ALL SENT' : 'PARTIAL'}
-      </div>
-      <div class="status-sub">
-        TARGET: ${num}<br>
-        INTL: ${data.msisdn || '-'}<br>
-        SUCCESS: <span style="color:var(--green)">${f.sent}</span> / ${target}<br>
-        FAILED: <span style="color:var(--red)">${f.failed}</span><br>
-        ATTEMPTS: ${f.totalAttempts}<br>
-        TIME: ${data.elapsed || 0}s
-      </div>
-      <div class="status-badge" style="${complete ? '' : 'color:var(--amber);background:rgba(251,191,36,.1);border-color:rgba(251,191,36,.4)'}">
-        ▸ ${complete ? 'COMPLETE' : 'MAX RETRIES REACHED'}
-      </div>
+      <div class="blocked-title">ACCESS DENIED</div>
+      <div class="blocked-sub">RESTRICTED NUMBER</div>
+      <div class="blocked-badge">🔒 PRIVATE / ADMIN</div>
     </div>`;
 }
 
-function showError(area, msg){
-  area.innerHTML = `
-    <div class="status-card" style="border-color:rgba(248,113,113,.5)">
-      <div class="status-title" style="color:var(--red)">SENDING FAILED</div>
-      <div class="status-sub">${msg || 'Unknown error'}</div>
-      <div class="status-badge" style="color:var(--red);background:rgba(248,113,113,.1);border-color:rgba(248,113,113,.4)">✕ ERROR</div>
-    </div>`;
+function showError(area,msg){
+  area.innerHTML=`<div class="error-card"><div class="err-title">${msg}</div><div class="err-sub">NO RECORD AVAILABLE</div></div>`;
+}
+function esc(s){
+  return String(s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
 
 // ============================================================
-// START
+// VIDEO / AUDIO — same as old code, but NO overlay
 // ============================================================
+const bgVideo = document.getElementById('bg-video');
+
+// Start muted (autoplay works)
+bgVideo.muted = true;
+bgVideo.volume = 1.0;
+bgVideo.play().catch(()=>{});
+
+// Auto-unmute on first tap anywhere
+let audioUnlocked = false;
+function unlockAudio(){
+  if(audioUnlocked) return;
+  audioUnlocked = true;
+  try{
+    bgVideo.muted = false;
+    bgVideo.volume = 1.0;
+    // Don't call play() — video is already playing; just unmute
+  }catch(e){}
+  document.removeEventListener('click', unlockAudio);
+  document.removeEventListener('touchstart', unlockAudio);
+}
+document.addEventListener('click', unlockAudio);
+document.addEventListener('touchstart', unlockAudio, {passive:true});
+
+// Mute on non-login screens (same logic as old code)
+const _origShow = show;
+window.show = function(id){
+  _origShow(id);
+  if(id === 's-login'){
+    if(audioUnlocked) bgVideo.muted = false;
+  } else {
+    bgVideo.muted = true;
+  }
+};
+
 window.addEventListener('load', ()=>{
-  setTimeout(()=>{ show('s-login'); }, 1200);
+  setTimeout(bootCheck, 1200);
 });
 </script>
 </body>
