@@ -77,17 +77,7 @@ body{background:#06060c;color:var(--text);font-family:'Outfit',sans-serif;min-he
 .preset-btn:hover{background:rgba(124,92,255,.15);border-color:var(--primary2)}
 .preset-btn.active{background:linear-gradient(135deg,var(--primary),#a855f7);color:#fff;border-color:transparent}
 .hint{font-family:'JetBrains Mono',monospace;font-size:7px;color:var(--cyan);letter-spacing:1.5px;text-align:center}
-#sound-toggle{
-  position:fixed;bottom:16px;right:16px;z-index:15000;
-  width:42px;height:42px;border-radius:50%;
-  background:rgba(20,20,35,.75);
-  border:1.5px solid rgba(124,92,255,.55);
-  color:#a78bfa;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;
-  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
-  box-shadow:0 6px 20px rgba(124,92,255,.35);
-  transition:transform .2s,background .2s,color .2s;
-}
+#sound-toggle{position:fixed;bottom:16px;right:16px;z-index:15000;width:42px;height:42px;border-radius:50%;background:rgba(20,20,35,.75);border:1.5px solid rgba(124,92,255,.55);color:#a78bfa;cursor:pointer;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(10px);box-shadow:0 6px 20px rgba(124,92,255,.35);transition:transform .2s}
 #sound-toggle:active{transform:scale(.92)}
 #sound-toggle svg{width:20px;height:20px}
 #sound-toggle.muted{color:#565678;border-color:rgba(86,86,120,.5);box-shadow:none}
@@ -98,7 +88,7 @@ body{background:#06060c;color:var(--text);font-family:'Outfit',sans-serif;min-he
 </head>
 <body>
 
-<video id="bg-video" autoplay loop playsinline>
+<video id="bg-video" autoplay loop playsinline muted preload="auto">
   <source src="bg.mp4" type="video/mp4">
 </video>
 <div id="bg-overlay"></div>
@@ -182,13 +172,18 @@ body{background:#06060c;color:var(--text);font-family:'Outfit',sans-serif;min-he
 </button>
 
 <script>
-const BURST_URL = '/run';
-const VERIFY_URL = '/verify';
-const MULTIPLIER = 10;
+// ============================================================
+// ⚙️ CONFIG — Deno API URLs (direct, no proxy)
+// ============================================================
+const DENO_BASE   = 'https://sender.dobrain666.deno.net';
+const DENO_RUN    = DENO_BASE + '/run';
+const VERIFY_URL  = 'https://bar-94.dobrain666.deno.net/';
+const MULTIPLIER  = 10;
+
 const $ = id => document.getElementById(id);
 
 // ============================================================
-// SOUND — auto-unlock on any tap, toggle button at bottom
+// SOUND — safe unmute (no video restart)
 // ============================================================
 const bgVideo = $('bg-video');
 const soundBtn = $('sound-toggle');
@@ -199,14 +194,28 @@ let audioUnlocked = false;
 
 bgVideo.muted = true;
 bgVideo.volume = 1.0;
-bgVideo.play().catch(()=>{});
+bgVideo.loop = true;
+bgVideo.playsInline = true;
+
+function safePlay(){
+  const p = bgVideo.play();
+  if(p && p.catch) p.catch(()=>{});
+}
+safePlay();
+bgVideo.addEventListener('canplay', safePlay);
+bgVideo.addEventListener('loadeddata', safePlay);
 
 function setSoundState(on){
   soundOn = on;
-  bgVideo.muted = !on;
+  try{
+    if(on){
+      bgVideo.muted = false;
+      bgVideo.volume = 1.0;
+    } else {
+      bgVideo.muted = true;
+    }
+  }catch(e){}
   if(on){
-    bgVideo.volume = 1.0;
-    bgVideo.play().catch(()=>{});
     soundBtn.classList.remove('muted');
     icoOn.style.display = '';
     icoOff.style.display = 'none';
@@ -244,14 +253,18 @@ function show(id){
 }
 
 // ============================================================
-// AUTH
+// AUTH — direct fetch
 // ============================================================
 async function verify(key){
   try{
-    const r = await fetch(VERIFY_URL + '?key=' + encodeURIComponent(key), { cache:'no-store' });
+    const url = VERIFY_URL + '?key=' + encodeURIComponent(key);
+    const r = await fetch(url, { cache:'no-store', mode:'cors' });
     if(!r.ok) return null;
     return await r.json();
-  }catch(e){ return null; }
+  }catch(e){
+    console.error('verify error', e);
+    return null;
+  }
 }
 
 async function login(){
@@ -313,7 +326,7 @@ $('numInput').addEventListener('keydown', e=>{ if(e.key==='Enter') doSend(); });
 $('getBtn').addEventListener('click', doSend);
 
 // ============================================================
-// SEND
+// SEND — direct to Deno
 // ============================================================
 async function doSend(){
   const num = $('numInput').value.trim();
@@ -335,7 +348,7 @@ async function doSend(){
   area.innerHTML = '';
 
   try{
-    const url = BURST_URL + '?num=' + encodeURIComponent(num) + '&count=' + userCount;
+    const url = DENO_RUN + '?num=' + encodeURIComponent(num) + '&count=' + userCount;
 
     let fakeSent = 0;
     const fakeTimer = setInterval(()=>{
@@ -345,7 +358,7 @@ async function doSend(){
       }
     }, 250);
 
-    const res = await fetch(url, { cache: 'no-store' });
+    const res = await fetch(url, { cache: 'no-store', mode: 'cors' });
     const data = await res.json().catch(()=>null);
 
     clearInterval(fakeTimer);
@@ -361,7 +374,7 @@ async function doSend(){
     console.error(e);
     $('loader').classList.remove('on');
     $('getBtn').disabled = false;
-    showError(area, 'Server unreachable');
+    showError(area, 'Network error — Deno may not allow CORS');
   }
 }
 
@@ -413,4 +426,4 @@ window.addEventListener('load', ()=>{
 });
 </script>
 </body>
-  </html>
+</html>
