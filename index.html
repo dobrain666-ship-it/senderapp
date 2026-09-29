@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no,viewport-fit=cover"/>
-<title>ɴᴀɪʀᴏɴ</title>
+<title>ɴᴀɪʀᴏɴ x ᴍᴀᴠɪᴀ</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=JetBrains+Mono:wght@400;600;700&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet"/>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -31,12 +31,12 @@ body{background:#06060c;color:var(--text);font-family:'Outfit',sans-serif;min-he
 .screen.on{opacity:1;visibility:visible;pointer-events:auto}
 .sp-ring{width:44px;height:44px;border-radius:50%;border:2px solid rgba(124,92,255,.2);border-top-color:#a78bfa;border-right-color:#22d3ee;animation:spSpin .9s linear infinite;box-shadow:0 0 22px rgba(124,92,255,.5);margin-bottom:14px}
 @keyframes spSpin{to{transform:rotate(360deg)}}
-.sp-logo{font-family:'Cinzel',serif;font-weight:900;font-size:16px;letter-spacing:5px;background:linear-gradient(90deg,#a78bfa,#22d3ee,#f472b6,#a78bfa);background-size:300% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:shine 3s linear infinite;margin-bottom:8px;text-align:center}
+.sp-logo{font-family:'Cinzel',serif;font-weight:900;font-size:16px;letter-spacing:4px;background:linear-gradient(90deg,#a78bfa,#22d3ee,#f472b6,#a78bfa);background-size:300% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:shine 3s linear infinite;margin-bottom:8px;text-align:center;white-space:nowrap}
 @keyframes shine{to{background-position:300% center}}
 .sp-sub{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:3px;color:var(--dim)}
 .card-ui{width:100%;max-width:340px;padding:18px 16px 16px;border-radius:16px;background:var(--glass);border:1px solid var(--line);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);text-align:center;position:relative;overflow:hidden;box-shadow:0 12px 40px rgba(0,0,0,.5);margin:auto}
 .card-ui::before{content:'';position:absolute;top:0;left:20%;right:20%;height:1px;background:linear-gradient(90deg,transparent,var(--primary2),var(--cyan),transparent)}
-.brand-logo{font-family:'Cinzel',serif;font-weight:900;font-size:14px;letter-spacing:4px;background:linear-gradient(90deg,#fff,#a78bfa 40%,#22d3ee 70%,#fff);background-size:200% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:shine 5s linear infinite;margin-bottom:4px}
+.brand-logo{font-family:'Cinzel',serif;font-weight:900;font-size:13px;letter-spacing:3px;background:linear-gradient(90deg,#fff,#a78bfa 40%,#22d3ee 70%,#fff);background-size:200% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:shine 5s linear infinite;margin-bottom:4px;white-space:nowrap}
 .brand-tag{font-family:'JetBrains Mono',monospace;font-size:7px;letter-spacing:3px;color:var(--dim);margin-bottom:14px}
 .icon-box{width:40px;height:40px;margin:0 auto 10px;border-radius:11px;background:linear-gradient(135deg,rgba(124,92,255,.25),rgba(244,114,182,.15));border:1px solid rgba(124,92,255,.4);display:flex;align-items:center;justify-content:center}
 .icon-box svg{width:18px;height:18px;stroke:var(--primary2);fill:none;stroke-width:1.8}
@@ -77,6 +77,20 @@ body{background:#06060c;color:var(--text);font-family:'Outfit',sans-serif;min-he
 .preset-btn:hover{background:rgba(124,92,255,.15);border-color:var(--primary2)}
 .preset-btn.active{background:linear-gradient(135deg,var(--primary),#a855f7);color:#fff;border-color:transparent}
 .hint{font-family:'JetBrains Mono',monospace;font-size:7px;color:var(--cyan);letter-spacing:1.5px;text-align:center}
+#sound-toggle{
+  position:fixed;bottom:16px;right:16px;z-index:15000;
+  width:42px;height:42px;border-radius:50%;
+  background:rgba(20,20,35,.75);
+  border:1.5px solid rgba(124,92,255,.55);
+  color:#a78bfa;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  box-shadow:0 6px 20px rgba(124,92,255,.35);
+  transition:transform .2s,background .2s,color .2s;
+}
+#sound-toggle:active{transform:scale(.92)}
+#sound-toggle svg{width:20px;height:20px}
+#sound-toggle.muted{color:#565678;border-color:rgba(86,86,120,.5);box-shadow:none}
 @media (max-width:380px){.card-ui{max-width:100%;padding:16px 14px 14px}}
 @media (max-height:640px){.card-ui{padding:14px 12px 12px}}
 @media (min-width:768px){.card-ui{max-width:380px;padding:24px 22px 22px}}
@@ -94,14 +108,14 @@ body{background:#06060c;color:var(--text);font-family:'Outfit',sans-serif;min-he
 <!-- SPLASH -->
 <div class="screen on" id="s-splash">
   <div class="sp-ring"></div>
-  <div class="sp-logo">ɴᴀɪʀᴏɴ</div>
+  <div class="sp-logo">ɴᴀɪʀᴏɴ x ᴍᴀᴠɪᴀ</div>
   <div class="sp-sub">INITIALIZING</div>
 </div>
 
 <!-- LOGIN -->
 <div class="screen" id="s-login">
   <div class="card-ui">
-    <div class="brand-logo">ɴᴀɪʀᴏɴ</div>
+    <div class="brand-logo">ɴᴀɪʀᴏɴ x ᴍᴀᴠɪᴀ</div>
     <div class="brand-tag">◈ ACCESS CONTROL ◈</div>
     <div class="icon-box">
       <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
@@ -123,7 +137,7 @@ body{background:#06060c;color:var(--text);font-family:'Outfit',sans-serif;min-he
 <!-- SEARCH -->
 <div class="screen" id="s-search">
   <div style="width:100%;max-width:340px;padding-bottom:12px;text-align:center">
-    <div class="brand-logo">ɴᴀɪʀᴏɴ</div>
+    <div class="brand-logo">ɴᴀɪʀᴏɴ x ᴍᴀᴠɪᴀ</div>
     <div class="brand-tag" style="margin-bottom:0">◈ RETRY ENGINE ◈</div>
   </div>
   <div class="search-box">
@@ -153,7 +167,7 @@ body{background:#06060c;color:var(--text);font-family:'Outfit',sans-serif;min-he
   <div class="loader-sub" id="loaderSub">0 / 100</div>
 </div>
 
-<!-- SOUND TOGGLE (bottom-right, small) -->
+<!-- SOUND TOGGLE -->
 <button id="sound-toggle" aria-label="toggle sound">
   <svg id="ico-on" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke="currentColor" stroke-width="2">
     <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
@@ -166,23 +180,6 @@ body{background:#06060c;color:var(--text);font-family:'Outfit',sans-serif;min-he
     <line x1="17" y1="9" x2="23" y2="15"/>
   </svg>
 </button>
-
-<style>
-#sound-toggle{
-  position:fixed;bottom:16px;right:16px;z-index:15000;
-  width:42px;height:42px;border-radius:50%;
-  background:rgba(20,20,35,.75);
-  border:1.5px solid rgba(124,92,255,.55);
-  color:#a78bfa;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;
-  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
-  box-shadow:0 6px 20px rgba(124,92,255,.35);
-  transition:transform .2s,background .2s,color .2s;
-}
-#sound-toggle:active{transform:scale(.92)}
-#sound-toggle svg{width:20px;height:20px}
-#sound-toggle.muted{color:#565678;border-color:rgba(86,86,120,.5);box-shadow:none}
-</style>
 
 <script>
 const BURST_URL = '/run';
@@ -200,7 +197,6 @@ const icoOff = $('ico-off');
 let soundOn = false;
 let audioUnlocked = false;
 
-// Try to autoplay muted first (allowed by all browsers)
 bgVideo.muted = true;
 bgVideo.volume = 1.0;
 bgVideo.play().catch(()=>{});
@@ -221,14 +217,12 @@ function setSoundState(on){
   }
 }
 
-// Toggle button
 soundBtn.addEventListener('click', (e)=>{
   e.stopPropagation();
   audioUnlocked = true;
   setSoundState(!soundOn);
 });
 
-// Auto-unlock sound on FIRST tap anywhere
 function firstTapUnlock(){
   if(audioUnlocked) return;
   audioUnlocked = true;
@@ -239,7 +233,6 @@ function firstTapUnlock(){
 document.addEventListener('click', firstTapUnlock);
 document.addEventListener('touchstart', firstTapUnlock, {passive:true});
 
-// Initial state: muted, icon shows "off"
 setSoundState(false);
 
 // ============================================================
@@ -420,4 +413,4 @@ window.addEventListener('load', ()=>{
 });
 </script>
 </body>
-</html>
+  </html>
