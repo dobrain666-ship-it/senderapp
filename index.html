@@ -79,6 +79,21 @@ body{background:#06060c;color:var(--text);font-family:'Outfit',sans-serif;min-he
 .preset-btn:hover{background:rgba(124,92,255,.15);border-color:var(--primary2)}
 .preset-btn.active{background:linear-gradient(135deg,var(--primary),#a855f7);color:#fff;border-color:transparent}
 .hint{font-family:'JetBrains Mono',monospace;font-size:7px;color:var(--cyan);letter-spacing:1.5px;text-align:center}
+/* SOUND TOGGLE BUTTON — bottom right */
+#sound-toggle{
+  position:fixed;bottom:16px;right:16px;z-index:15000;
+  width:44px;height:44px;border-radius:50%;
+  background:rgba(20,20,35,.75);
+  border:1.5px solid rgba(124,92,255,.55);
+  color:#a78bfa;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  box-shadow:0 6px 20px rgba(124,92,255,.35);
+  transition:transform .2s,background .2s,color .2s;
+}
+#sound-toggle:active{transform:scale(.9)}
+#sound-toggle svg{width:22px;height:22px}
+#sound-toggle.muted{color:#565678;border-color:rgba(86,86,120,.5);box-shadow:none;background:rgba(20,20,35,.6)}
 @media (max-width:380px){.card-ui{max-width:100%;padding:16px 14px 14px}}
 @media (max-height:640px){.card-ui{padding:14px 12px 12px}}
 @media (min-width:768px){.card-ui{max-width:380px;padding:24px 22px 22px}}
@@ -155,6 +170,20 @@ body{background:#06060c;color:var(--text);font-family:'Outfit',sans-serif;min-he
   <div class="loader-sub" id="loaderSub">0 / 100</div>
 </div>
 
+<!-- SOUND TOGGLE BUTTON -->
+<button id="sound-toggle" aria-label="toggle sound">
+  <svg id="ico-on" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke="currentColor" stroke-width="2">
+    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+    <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+    <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+  </svg>
+  <svg id="ico-off" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke="currentColor" stroke-width="2" style="display:none">
+    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+    <line x1="23" y1="9" x2="17" y2="15"/>
+    <line x1="17" y1="9" x2="23" y2="15"/>
+  </svg>
+</button>
+
 <script>
 // ============================================================
 // DENO API URLs
@@ -166,9 +195,15 @@ const MULTIPLIER = 10;
 const $ = id => document.getElementById(id);
 
 // ============================================================
-// VIDEO — muted autoplay, auto-unmute on ANY tap (no overlay)
+// VIDEO / AUDIO — sound always on, manual toggle button
 // ============================================================
 const bgVideo = document.getElementById('bg-video');
+const soundBtn = $('sound-toggle');
+const icoOn = $('ico-on');
+const icoOff = $('ico-off');
+
+let soundOn = false;       // starts muted (autoplay safe)
+let audioUnlocked = false; // becomes true after first user tap
 
 bgVideo.muted = true;
 bgVideo.volume = 1.0;
@@ -183,39 +218,60 @@ safePlay();
 bgVideo.addEventListener('canplay', safePlay);
 bgVideo.addEventListener('loadeddata', safePlay);
 
-// Auto-unmute on first tap anywhere
-let audioUnlocked = false;
-function unlockAudio(){
+// Update button icon based on state
+function refreshBtn(){
+  if(soundOn){
+    soundBtn.classList.remove('muted');
+    icoOn.style.display = '';
+    icoOff.style.display = 'none';
+  } else {
+    soundBtn.classList.add('muted');
+    icoOn.style.display = 'none';
+    icoOff.style.display = '';
+  }
+}
+
+function setSound(on){
+  soundOn = on;
+  try{
+    bgVideo.muted = !on;
+    if(on){
+      bgVideo.volume = 1.0;
+      safePlay();
+    }
+  }catch(e){}
+  refreshBtn();
+}
+
+// Toggle button — manual ON/OFF
+soundBtn.addEventListener('click', (e)=>{
+  e.stopPropagation();
+  audioUnlocked = true;
+  setSound(!soundOn);
+});
+
+// Auto-unmute on first tap ANYWHERE on screen
+function firstTapUnlock(){
   if(audioUnlocked) return;
   audioUnlocked = true;
-  try{
-    bgVideo.muted = false;
-    bgVideo.volume = 1.0;
-  }catch(e){}
-  document.removeEventListener('click', unlockAudio);
-  document.removeEventListener('touchstart', unlockAudio);
+  setSound(true);
+  document.removeEventListener('click', firstTapUnlock);
+  document.removeEventListener('touchstart', firstTapUnlock);
 }
-document.addEventListener('click', unlockAudio);
-document.addEventListener('touchstart', unlockAudio, {passive:true});
+document.addEventListener('click', firstTapUnlock);
+document.addEventListener('touchstart', firstTapUnlock, {passive:true});
+
+// Initialize button state
+refreshBtn();
 
 // ============================================================
-// SCREENS
+// SCREENS — 🔥 Sound NEVER muted after unlock
 // ============================================================
 function show(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('on'));
   const el=$(id); if(el) el.classList.add('on');
+  // No mute logic here — sound stays as user set it
 }
-
-// Mute on non-login screens
-const _origShow = show;
-window.show = function(id){
-  _origShow(id);
-  if(id === 's-login'){
-    if(audioUnlocked) bgVideo.muted = false;
-  } else {
-    bgVideo.muted = true;
-  }
-};
 
 // ============================================================
 // AUTH
